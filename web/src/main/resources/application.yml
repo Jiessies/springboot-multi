@@ -1,0 +1,43 @@
+server:
+  port: 8102
+#\u5E94\u7528\u540D\u79F0
+spring:
+  application:
+    name: web-spring
+  datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 1
+      max-active: 20
+      max-open-prepared-statements: 20
+      maxWait: 60000
+      min-evictable-idle-time-millis: 300000
+      min-idle: 5
+      password: 123456
+      pool-prepared-statements: false
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+      username: root
+      validation-query: SELECT 'x'
+
+dubbo:
+  application:
+    name: customer-web
+    #telnet\u7AEF\u53E3
+#    qosEnable: false
+#    qosPort: 22223
+#    qosAcceptForeignIp: false
+#\u6CE8\u518C\u4E2D\u5FC3\u5730\u5740
+  protocol:
+    name: dubbo
+  registry:
+    address: zookeeper://127.0.0.1:2181
+#\u8C03\u7528dubbo\u7EC4\u5EFA\u626B\u63CF\u7684\u9879\u76EE\u8DEF\u5F84
+  scan: com.tojoy.web.controller
+#\u68C0\u67E5\u670D\u52A1\u662F\u5426\u53EF\u7528\u9ED8\u8BA4\u4E3Atrue\uFF0C\u4E0D\u53EF\u7528\u65F6\u629B\u51FA\u5F02\u5E38\uFF0C\u963B\u6B62spring\u521D\u59CB\u5316\uFF0C\u4E3A\u65B9\u4FBF\u90E8\u7F72\uFF0C\u53EF\u4EE5\u6539\u6210false
+\u00A0\u00A0consumer:
+\u00A0\u00A0  check: false\u00A0
+

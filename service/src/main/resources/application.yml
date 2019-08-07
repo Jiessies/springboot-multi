@@ -1,0 +1,48 @@
+
+server:
+  port: 8100
+
+#\u5E94\u7528\u540D\u79F0
+spring:
+  application:
+    name: service-spring
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    initial-size: 1
+    max-active: 20
+    max-open-prepared-statements: 20
+    maxWait: 60000
+    min-evictable-idle-time-millis: 300000
+    min-idle: 5
+    password: 123456
+    pool-prepared-statements: false
+    test-on-borrow: false
+    test-on-return: false
+    test-while-idle: true
+    time-between-eviction-runs-millis: 60000
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    validation-query: SELECT 'x'
+dubbo:
+  application:
+    name: customer-service
+    qosEnable: false
+    qosPort: 22223
+    qosAcceptForeignIp: false
+  registry:   #
+    address:  zookeeper://127.0.0.1:2181
+   # address: zookeeper://192.168.128.13:2181?backup=192.168.128.24:2181,192.168.128.25:2181
+#\u66B4\u9732\u670D\u52A1\u65B9\u5F0F
+  protocol:
+    name: dubbo
+    port: 20880
+  scan: com.jiessie.service.service.impl
+
+# mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.jiessie.facade.domain
+
