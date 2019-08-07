@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiessie.service.mapper.DubooMapper">
+
+
+    <insert id="saveDeptBatch" parameterType="java.util.List">
+        insert into `user` (userName, password, phone)
+        values
+        <foreach collection="list" item="user1" index="index" separator=",">
+            (#{user1.userName},
+            #{user1.password},
+            #{user1.phone})
+        </foreach>
+    </insert>
+
+</mapper>

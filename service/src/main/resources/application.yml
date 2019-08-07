@@ -46,3 +46,15 @@ mybatis:
     map-underscore-to-camel-case: true
   type-aliases-package: com.jiessie.facade.domain
 
+logging:
+#  config: classpath:logback-spring-test.xml
+  level:
+    com:
+      alibaba:
+        druid: debug
+      jiessie:
+        service:
+          mapper: debug
+    org:
+      mybatis: debug
+

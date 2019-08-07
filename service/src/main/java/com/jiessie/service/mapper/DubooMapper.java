@@ -12,4 +12,6 @@ public interface DubooMapper {
 
     @Select({"select * from user"})
     public List<DubboUser> findAllUser();
+
+    void saveDeptBatch(List<DubboUser> deptList);
 }
