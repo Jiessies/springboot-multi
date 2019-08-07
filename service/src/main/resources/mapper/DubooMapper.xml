@@ -13,4 +13,9 @@
         </foreach>
     </insert>
 
+    <insert id="saveDept" parameterType="com.jiessie.facade.domain.DubboUser">
+        insert into `user` (userName, password, phone)
+        value (#{userName},#{password},#{phone})
+    </insert>
+
 </mapper>

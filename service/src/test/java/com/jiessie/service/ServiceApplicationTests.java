@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -60,8 +59,8 @@ public class ServiceApplicationTests {
     @Test
     public void saveDeptBatchTwo() {
         //设置ExecutorType.BATCH原理：把SQL语句发个数据库，数据库预编译好，数据库等待需要运行的参数，接收到参数后一次运行，ExecutorType.BATCH只打印一次SQL语句，多次设置参数步骤，
-        SqlSession session = sqlSessionFactory.openSession(ExecutorType.BATCH);
-//        SqlSession session = sqlSessionFactory.openSession();
+//        SqlSession session = sqlSessionFactory.openSession(ExecutorType.BATCH);
+        SqlSession session = sqlSessionFactory.openSession();
         try {
             DubooMapper dubooMapper = session.getMapper(DubooMapper.class);
             long start = System.currentTimeMillis();
@@ -85,6 +84,36 @@ public class ServiceApplicationTests {
             e.printStackTrace();
         } finally {
             session.commit();
+            session.close();
+        }
+    }
+
+    @Test
+    public void saveDeptBatchOne() {
+        //设置ExecutorType.BATCH原理：把SQL语句发个数据库，数据库预编译好，数据库等待需要运行的参数，接收到参数后一次运行，ExecutorType.BATCH只打印一次SQL语句，多次设置参数步骤，
+        SqlSession session = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
+        try {
+            DubooMapper dubooMapper = session.getMapper(DubooMapper.class);
+            long start = System.currentTimeMillis();
+            for (int i = 0; i < 1000; i++) {
+                DubboUser dubboUser = new DubboUser();
+                dubboUser.setPassword("1111");
+                dubboUser.setPhone("13144445555");
+                dubboUser.setUserName("huangmingjie");
+                dubooMapper.saveDept(dubboUser);
+                if (i != 0 && i % 1000 == 0) {
+                    session.commit();
+                    session.clearCache();
+                }
+            }
+            session.commit();
+            session.clearCache();
+            long end = System.currentTimeMillis();
+            System.out.println("耗时:" + (end - start));
+            //BATCH批量耗时 耗时:822
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
             session.close();
         }
     }

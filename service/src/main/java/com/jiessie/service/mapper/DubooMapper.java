@@ -14,4 +14,6 @@ public interface DubooMapper {
     public List<DubboUser> findAllUser();
 
     void saveDeptBatch(List<DubboUser> deptList);
+
+    void saveDept(DubboUser dubboUser);
 }
